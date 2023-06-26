@@ -18,18 +18,26 @@ namespace BlackJack {
         Clubs
     };
 
-    class Card: public QObject
+    class Card: public QObject, public QGraphicsItem
     {
         Q_OBJECT
     public:
         Card(unsigned int value, Suit suit, const std::string& img);
+        ~Card();
 
-        unsigned int GetValue() const;
+        inline unsigned int GetValue() const { return m_Value; };
 
-        unsigned int GetSuit() const;
-        bool IsSuit(Suit suit) const;
+        inline unsigned int GetSuit() const { return m_Suit; };
 
-        QGraphicsPixmapItem* GetImg() const;
+        inline bool IsSuit(Suit suit) const { return m_Suit == suit; };
+
+        QRectF boundingRect() const override;
+
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+    signals:
+
+    public slots:
+
     private:
         unsigned int m_Value;
         Suit m_Suit;

@@ -18,8 +18,10 @@ namespace BlackJack {
                 sum += m_Hand[i]->GetValue();
             return sum;
         }
+
+        inline std::vector<Card*> GetHand() { return m_Hand; }
     protected:
-        std::vector<std::shared_ptr<Card>> m_Hand;
+        std::vector<Card*> m_Hand;
     };
 }
 

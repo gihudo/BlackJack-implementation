@@ -16,10 +16,10 @@ namespace BlackJack {
         Deck(std::string texture);
 
         void Shuffle();
-        std::shared_ptr<Card> GetCard();
+        Card* GetCard();
         bool IsEmpty() const;
     private:
-        std::vector<std::shared_ptr<Card>> m_Deck;
+        std::vector<Card*> m_Deck;
         bool m_IsEmpty;
         int m_Seed;
         std::string m_Texture;

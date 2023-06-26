@@ -11,10 +11,13 @@ namespace BlackJack {
         void Hit(Deck& deck) override;
         void Stand() override;
 
-        void setUsers(std::shared_ptr<std::vector<User>> users);
+        void AddUsers(const std::vector<User>& users);
+        void AddUser(const User& user);
         void Distribute(Deck& deck);
+
+        inline std::vector<User> GetUsers() const { return m_Users; }
     private:
-        std::shared_ptr<std::vector<User>> m_Users;
+        std::vector<User> m_Users;
     };
 }
 #endif // DEALER_H

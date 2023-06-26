@@ -5,14 +5,16 @@ namespace BlackJack {
 
     void Dealer::Stand() {}
 
-    void Dealer::setUsers(std::shared_ptr<std::vector<User>> users) { m_Users = users; }
+    void Dealer::AddUsers(const std::vector<User>& users) { m_Users.insert(m_Users.begin(), users.begin(), users.end()); }
+
+    void Dealer::AddUser(const User& user) { m_Users.push_back(user); }
 
     void Dealer::Distribute(Deck& deck)
     {
         Hit(deck);
         Hit(deck);
 
-        for (auto user : *m_Users.get()) {
+        for (auto user : m_Users) {
             user.Hit(deck);
             user.Hit(deck);
         }

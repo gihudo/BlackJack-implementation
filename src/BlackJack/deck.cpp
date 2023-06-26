@@ -10,47 +10,42 @@ namespace BlackJack {
     Deck::Deck(std::string texture)
         :m_IsEmpty(false), m_Seed(time(NULL)), m_Texture(texture)
     {
-        std::vector<std::unique_ptr<Card>> clubs;
-        for (int i = 0; i < 8; ++i)
-            clubs.emplace_back(std::make_unique<Card>(i, Clubs, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(J, Clubs, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(Q, Clubs, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(K, Clubs, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(A, Clubs, m_Texture));
+        std::vector<Card*> clubs;
+        for (int i = 2; i <= 10; ++i)
+            clubs.emplace_back(new Card(i, Clubs, ":/resources/resources/" + texture + "/clubs/" + std::to_string(i) +".png"));
+        clubs.emplace_back(new Card(J, Clubs, ":/resources/resources/" + texture + "/clubs/" + "j.png"));
+        clubs.emplace_back(new Card(Q, Clubs, ":/resources/resources/" + texture + "/clubs/" + "q.png"));
+        clubs.emplace_back(new Card(K, Clubs, ":/resources/resources/" + texture + "/clubs/" + "k.png"));
+        clubs.emplace_back(new Card(A, Clubs, ":/resources/resources/" + texture + "/clubs/" + "a.png"));
 
-        std::vector<std::unique_ptr<Card>> spades;
-        for (int i = 0; i < 8; ++i)
-            clubs.emplace_back(std::make_unique<Card>(i, Spades, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(J, Spades, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(Q, Spades, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(K, Spades, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(A, Spades, m_Texture));
+        std::vector<Card*> spades;
+        for (int i = 2; i <= 10; ++i)
+            spades.emplace_back(new Card(i, Spades, ":/resources/resources/" + texture + "/spades/" + std::to_string(i) +".png"));
+        spades.emplace_back(new Card(J, Spades, ":/resources/resources/" + texture + "/spades/" + "j.png"));
+        spades.emplace_back(new Card(Q, Spades, ":/resources/resources/" + texture + "/spades/" + "q.png"));
+        spades.emplace_back(new Card(K, Spades, ":/resources/resources/" + texture + "/spades/" + "k.png"));
+        spades.emplace_back(new Card(A, Spades, ":/resources/resources/" + texture + "/spades/" + "a.png"));
 
-        std::vector<std::unique_ptr<Card>> hearts;
-        for (int i = 0; i < 8; ++i)
-            clubs.push_back(std::make_unique<Card>(i, Hearts, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(J, Hearts, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(Q, Hearts, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(K, Hearts, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(A, Hearts, m_Texture));
+        std::vector<Card*> hearts;
+        for (int i = 2; i <= 10; ++i)
+            hearts.emplace_back(new Card(i, Hearts, ":/resources/resources/" + texture + "/hearts/" + std::to_string(i) +".png"));
+        hearts.emplace_back(new Card(J, Hearts, ":/resources/resources/" + texture + "/hearts/" + "j.png"));
+        hearts.emplace_back(new Card(Q, Hearts, ":/resources/resources/" + texture + "/hearts/" + "q.png"));
+        hearts.emplace_back(new Card(K, Hearts, ":/resources/resources/" + texture + "/hearts/" + "k.png"));
+        hearts.emplace_back(new Card(A, Hearts, ":/resources/resources/" + texture + "/hearts/" + "a.png"));
 
-        std::vector<std::unique_ptr<Card>> diamonds;
-        for (int i = 0; i < 8; ++i)
-            clubs.push_back(std::make_unique<Card>(i, Diamonds, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(J, Diamonds, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(Q, Diamonds, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(K, Diamonds, m_Texture));
-        clubs.emplace_back(std::make_unique<Card>(A, Diamonds, m_Texture));
+        std::vector<Card*> diamonds;
+        for (int i = 2; i <= 10; ++i)
+            diamonds.emplace_back(new Card(i, Diamonds, ":/resources/resources/" + texture + "/diamonds/" + std::to_string(i) +".png"));
+        diamonds.emplace_back(new Card(J, Diamonds, ":/resources/resources/" + texture + "/diamonds/" + "j.png"));
+        diamonds.emplace_back(new Card(Q, Diamonds, ":/resources/resources/" + texture + "/diamonds/" + "q.png"));
+        diamonds.emplace_back(new Card(K, Diamonds, ":/resources/resources/" + texture + "/diamonds/" + "k.png"));
+        diamonds.emplace_back(new Card(A, Diamonds, ":/resources/resources/" + texture + "/diamonds/" + "a.png"));
 
-        //m_Deck.insert(m_Deck.end(), std::make_move_iterator(clubs.begin()), std::make_move_iterator(clubs.end()));
-        //m_Deck.insert(m_Deck.end(), std::make_move_iterator(spades.begin()), std::make_move_iterator(spades.end()));
-        //m_Deck.insert(m_Deck.end(), std::make_move_iterator(hearts.begin()), std::make_move_iterator(hearts.end()));
-        //m_Deck.insert(m_Deck.end(), std::make_move_iterator(diamonds.begin()), std::make_move_iterator(diamonds.end()));
-
-        //m_Deck.insert(clubs.begin(), clubs.end(), m_Deck.end());
-        //m_Deck.insert(spades.begin(), spades.end(), m_Deck.end());
-        //m_Deck.insert(hearts.begin(), hearts.end(), m_Deck.end());
-        //m_Deck.insert(diamonds.begin(), diamonds.end(), m_Deck.end());
+        m_Deck.insert(m_Deck.end(), clubs.begin(), clubs.end());
+        m_Deck.insert(m_Deck.end(), spades.begin(), spades.end());
+        m_Deck.insert(m_Deck.end(), hearts.begin(), hearts.end());
+        m_Deck.insert(m_Deck.end(), diamonds.begin(), diamonds.end());
     }
 
     void Deck::Shuffle()
@@ -61,12 +56,12 @@ namespace BlackJack {
         }
     }
 
-    std::shared_ptr<Card> Deck::GetCard()
+    Card* Deck::GetCard()
     {
         if (m_IsEmpty)
             throw std::out_of_range("The deck is empty");
 
-        std::shared_ptr<Card> card = m_Deck[0];
+        Card* card = m_Deck[0];
         m_Deck.erase(m_Deck.begin());
         m_IsEmpty = m_Deck.size() == 0;
 

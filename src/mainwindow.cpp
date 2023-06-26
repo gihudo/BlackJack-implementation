@@ -10,15 +10,21 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new BlackJack::Scene(this);
     scene->setSceneRect(0, 0, 400, 400);
 
-    BlackJack::Card card(2, BlackJack::Hearts, ":/resources/resources/mytexture/hearts/2.png");
-    scene->addItem(card.GetImg());
+    BlackJack::Game game({BlackJack::User("copycat", 1000)}, "mytexture");
+    game.Start();
 
+    for (auto card : game.GetDealer()->GetHand())
+        scene->addItem(card);
 
-    ui->graphicsView->setScene(scene);
+    ui->dealersHand->setScene(scene);
 }
 
 MainWindow::~MainWindow()
 {
-    delete scene;
     delete ui;
+}
+
+void MainWindow::on_hitButton_clicked()
+{
+    qDebug() << "Button clicked!";
 }

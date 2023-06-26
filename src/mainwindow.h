@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "BlackJack/scene.h"
-#include "BlackJack/card.h"
+#include "BlackJack/game.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +16,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void on_hitButton_clicked();
 
 private:
     Ui::MainWindow *ui;
