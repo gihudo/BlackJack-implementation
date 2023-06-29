@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow)
@@ -13,10 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
     BlackJack::Game game({BlackJack::User("copycat", 1000)}, "mytexture");
     game.Start();
 
+    int i = 5;
     for (auto card : game.GetDealer()->GetHand())
-        scene->addItem(card);
+    {
+        scene->addItem(card->Animate(i));
+        i++;
+    }
 
-    ui->dealersHand->setScene(scene);
+    ui->gameField->setScene(scene);
 }
 
 MainWindow::~MainWindow()
