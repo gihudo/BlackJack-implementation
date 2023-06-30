@@ -14,7 +14,7 @@ namespace BlackJack {
         Hit(deck);
         Hit(deck);
 
-        for (auto user : m_Users) {
+        for (auto& user : m_Users) {
             user.Hit(deck);
             user.Hit(deck);
         }

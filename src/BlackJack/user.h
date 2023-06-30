@@ -6,9 +6,9 @@
 
 namespace BlackJack {
     enum State {
-        OutOfBalance = 0b001,
-        NotPlaying = 0b010,
-        Playing = 0b100,
+        OutOfBalance    = 0b001,
+        NotPlaying      = 0b010,
+        Playing         = 0b100,
     };
 
     class User : public Player

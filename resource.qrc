@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/resources">
-        <file>resources/bg_table.jpg</file>
+        <file>resources/table.png</file>
         <file>resources/mytexture/clubs/2.png</file>
         <file>resources/mytexture/clubs/3.png</file>
         <file>resources/mytexture/clubs/4.png</file>

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
 #include "BlackJack/scene.h"
 #include "BlackJack/game.h"
 
@@ -18,10 +19,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_hitButton_clicked();
+    void on_startButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     BlackJack::Scene *scene;
+    BlackJack::Game game = BlackJack::Game({BlackJack::User("copycat", 1000)}, "mytexture");
 };
 #endif // MAINWINDOW_H

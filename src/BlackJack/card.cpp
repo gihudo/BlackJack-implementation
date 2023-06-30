@@ -3,15 +3,17 @@
 
 static const qreal CARD_SCALE = 0.5;
 
-static const int ANIM_DURATION = 1500;
-static const qreal ANIM_START_POSITION = 250;
-static const qreal ANIM_END_POSITION = -100;
+static const qreal ANIM_DURATION = 250;
+static const qreal XSTART_POSITION = 250;
+static const qreal YSTART_POSITION = 250;
+static const qreal CARD_OFFSET = 100;
 
 namespace BlackJack {
     Card::Card(unsigned int value, Suit suit, const std::string& img)
         :m_Value(value), m_Suit(suit), m_Img(new QGraphicsPixmapItem(QPixmap(QString::fromStdString(img))))
     {
-        m_Img->setPos(QPointF(-m_Img->boundingRect().size().width(), 0));
+        this->SetX(XSTART_POSITION);
+        this->SetY(YSTART_POSITION);
     }
 
     Card::~Card()
@@ -31,10 +33,15 @@ namespace BlackJack {
         painter->drawRect(boundingRect());
 
         if (m_Img != nullptr) {
-            QPointF imagePosition(0, 0);
             painter->scale(CARD_SCALE, CARD_SCALE);
-            painter->drawPixmap(imagePosition, m_Img->pixmap());
+            painter->drawPixmap(QPointF(0, 0), m_Img->pixmap());
         }
+    }
+
+    void Card::SetY(qreal y)
+    {
+        moveBy(0, y - m_Y);
+        m_Y = y;
     }
 
     void Card::SetX(qreal x)
@@ -43,14 +50,25 @@ namespace BlackJack {
         m_X = x;
     }
 
-    Card* Card::Animate(int count_delay)
+    Card* Card::Animate(unsigned int index, const QPointF& position)
     {
-        QTimer::singleShot(count_delay * 1000, [=]() {
-            m_Animation = new QPropertyAnimation(this, "x", this);
-            m_Animation->setStartValue(ANIM_START_POSITION);
-            m_Animation->setEndValue(ANIM_END_POSITION);
-            m_Animation->setEasingCurve(QEasingCurve::Linear);
-            m_Animation->setDuration(ANIM_DURATION);
+        QTimer::singleShot(index * ANIM_DURATION, [=]() {
+            m_Animation = new QParallelAnimationGroup(this);
+
+            auto xAnimation = new QPropertyAnimation(this, "x", this);
+            xAnimation->setStartValue(XSTART_POSITION);
+            xAnimation->setEndValue(position.x() + CARD_OFFSET * index);
+            xAnimation->setEasingCurve(QEasingCurve::Linear);
+            xAnimation->setDuration(ANIM_DURATION);
+            m_Animation->addAnimation(xAnimation);
+
+            auto yAnimation = new QPropertyAnimation(this, "y", this);
+            yAnimation->setStartValue(YSTART_POSITION);
+            yAnimation->setEndValue(position.y());
+            yAnimation->setEasingCurve(QEasingCurve::Linear);
+            yAnimation->setDuration(ANIM_DURATION);
+            m_Animation->addAnimation(yAnimation);
+
             m_Animation->start();
         });
 
